@@ -36,10 +36,8 @@ class _MyHomePageState extends State<MyHomePage> {
     TimeZone('Hong Kong', 8),
     TimeZone('Berlin', 1),
     TimeZone('London', 0),
-    TimeZone('Toronto', -5),
-    TimeZone('New York', -5),
-    TimeZone('Los Angeles', -8),
-    TimeZone('Seattle', -8),
+    TimeZone('New York / Toronto', -5),
+    TimeZone('Los Angeles / Seattle', -8),
   ];
 
   DateTime utc = DateTime.now().toUtc();
