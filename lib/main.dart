@@ -82,11 +82,11 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 Text(
                   data[index].name,
-                  style: TextStyle(fontSize: 30),
+                  style: TextStyle(fontSize: 20),
                 ),
                 Text(
                   getTimeText(index),
-                  style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                 )
               ],
             ),
