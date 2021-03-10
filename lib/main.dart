@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:weather/weather.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:intl/intl_browser.dart';
-// import 'package:intl/locale.dart';
 import 'package:timezone/browser.dart' as tz;
+import 'package:weather/weather.dart';
 
 void main() async {
   await tz.initializeTimeZone();
@@ -17,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'gadoory',
+      theme: ThemeData(primarySwatch: Colors.amber),
       home: MyHomePage(),
     );
   }
@@ -54,11 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
     TimeZone('Seattle', 'America/Los_Angeles'),
   ];
 
+  double uber;
+
   @override
   void initState() {
     super.initState();
     loop();
     weather();
+    finance();
   }
 
   void loop() async {
@@ -76,14 +79,24 @@ class _MyHomePageState extends State<MyHomePage> {
     WeatherFactory wf = WeatherFactory('34447a7ec0ffb652b17e901ef4e88004');
     for (var i = 0; i < data.length; i++) {
       data[i].weather = await wf.currentWeatherByCityName(data[i].displayName);
-      setState(() {});
     }
+    setState(() {});
+  }
+
+  void finance() async {
+    var url = Uri.parse(
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vRceLFXyWQfMpAI-8ravTmYNKBSD1ZhlRMLJn0Vln7odY621CHAQhihQpP0Lh2tVmgsbLD6uWeaVMsY/pub?gid=0&single=true&output=csv');
+    uber = double.parse(await http.read(url));
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 242, 239, 228),
+      appBar: AppBar(
+        title: Text('UBER : $uber'),
+      ),
       body: Center(
         child: Container(
           width: 500,
