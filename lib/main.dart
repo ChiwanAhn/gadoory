@@ -2,8 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:weather/weather.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/intl_browser.dart';
+// import 'package:intl/locale.dart';
+import 'package:timezone/browser.dart' as tz;
 
-void main() {
+void main() async {
+  await tz.initializeTimeZone();
   runApp(MyApp());
 }
 
@@ -23,25 +28,30 @@ class MyHomePage extends StatefulWidget {
 }
 
 class TimeZone {
-  String name;
-  Duration timeZoneOffset;
+  String displayName;
   Weather weather;
+  String locale;
 
-  TimeZone(this.name, int offset) {
-    this.timeZoneOffset = Duration(hours: offset);
+  TimeZone(String displayName, String locale) {
+    this.displayName = displayName;
+    this.locale = locale;
+  }
+
+  DateTime get localTime {
+    final timezone = tz.getLocation(locale);
+    return tz.TZDateTime.from(DateTime.now(), timezone);
   }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   var data = [
-    TimeZone('Seoul', 9),
-    TimeZone('Hong Kong', 8),
-    TimeZone('Berlin', 1),
-    TimeZone('London', 0),
-    TimeZone('New York', -5),
-    TimeZone('Toronto', -5),
-    TimeZone('Los Angeles', -8),
-    TimeZone('Seattle', -8),
+    TimeZone('Seoul', 'Asia/Seoul'),
+    TimeZone('Hong Kong', 'Asia/Hong_Kong'),
+    TimeZone('London', 'Europe/London'),
+    TimeZone('New York', 'America/New_York'),
+    TimeZone('Toronto', 'America/Toronto'),
+    TimeZone('Los Angeles', 'America/Los_Angeles'),
+    TimeZone('Seattle', 'America/Los_Angeles'),
   ];
 
   @override
@@ -65,18 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void weather() async {
     WeatherFactory wf = WeatherFactory('34447a7ec0ffb652b17e901ef4e88004');
     for (var i = 0; i < data.length; i++) {
-      data[i].weather = await wf.currentWeatherByCityName(data[i].name);
+      data[i].weather = await wf.currentWeatherByCityName(data[i].displayName);
       setState(() {});
     }
-  }
-
-  String getTimeText(int index) {
-    var utc = DateTime.now().toUtc();
-    var time = utc.add(data[index].timeZoneOffset);
-    var hour = time.hour.toString().padLeft(2, '0');
-    var minute = time.minute.toString().padLeft(2, '0');
-    var second = time.second.toString().padLeft(2, '0');
-    return '$hour:$minute:$second';
   }
 
   @override
@@ -92,32 +93,37 @@ class _MyHomePageState extends State<MyHomePage> {
             children: List.generate(
               data.length,
               (index) {
+                final item = data[index];
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            data[index].name,
-                            style: TextStyle(fontSize: 20),
+                            item.displayName,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black54,
+                            ),
                           ),
-                          data[index].weather != null
+                          item.weather != null
                               ? Image.network(
-                                  'https://openweathermap.org/img/wn/${data[index].weather.weatherIcon}@2x.png',
+                                  'https://openweathermap.org/img/wn/${item.weather.weatherIcon}@2x.png',
                                   width: 50,
                                   height: 50,
                                 )
                               : Container(),
-                          data[index].weather != null
+                          item.weather != null
                               ? Text(
-                                  '${data[index].weather.temperature.celsius.ceil()}°C')
+                                  '${item.weather.temperature.celsius.ceil()}°C')
                               : Container()
                         ],
                       ),
                       Text(
-                        getTimeText(index),
+                        DateFormat.jms().format(item.localTime),
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       )
