@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Text(
                         getTimeText(index),
                         style: TextStyle(
-                            fontSize: 40, fontWeight: FontWeight.bold),
+                            fontSize: 30, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
