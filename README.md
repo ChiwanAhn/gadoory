@@ -2,6 +2,10 @@
 
 A new Flutter application.
 
+## Design & Mocks
+
+- [Figma](https://www.figma.com/file/UWXWYGN84BPWQm7XvzQDLk/gadoory-world-clock)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
