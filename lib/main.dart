@@ -43,6 +43,8 @@ class TimeZone {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  static Color textColor = Color(0xFFFAFAFA);
+
   var data = [
     TimeZone('Seoul', 'Asia/Seoul'),
     TimeZone('Hong Kong', 'Asia/Hong_Kong'),
@@ -99,47 +101,82 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Container(
-          width: 500,
+          width: 360,
           child: GridView.builder(
+            padding: EdgeInsets.all(16),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisSpacing: 16,
+              mainAxisSpacing: 16,
               crossAxisCount: 2,
-              childAspectRatio: 1.3,
+              childAspectRatio: 0.75,
             ),
             itemCount: data.length,
             itemBuilder: (context, index) {
               final item = data[index];
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(16),
+                    )),
+                child: Stack(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.displayName,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.black54,
+                    item.weather != null
+                        ? Positioned(
+                            top: 16,
+                            right: 16,
+                            child: Row(
+                              children: [
+                                Image.network(
+                                  'https://openweathermap.org/img/wn/${item.weather.weatherIcon}@2x.png',
+                                  width: 20,
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  width: 4,
+                                ),
+                                Container(
+                                  height: 24,
+                                  child: Text(
+                                    '${item.weather.temperature.celsius.ceil()}°C',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: textColor,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        : Container(),
+                    Positioned(
+                      bottom: 16,
+                      left: 16,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 19,
+                            child: Text(
+                              item.displayName,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: textColor,
+                              ),
+                            ),
                           ),
-                        ),
-                        item.weather != null
-                            ? Image.network(
-                                'https://openweathermap.org/img/wn/${item.weather.weatherIcon}@2x.png',
-                                width: 50,
-                                height: 50,
-                              )
-                            : Container(),
-                        item.weather != null
-                            ? Text(
-                                '${item.weather.temperature.celsius.ceil()}°C')
-                            : Container()
-                      ],
-                    ),
-                    Text(
-                      DateFormat.jms().format(item.localTime),
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                          Container(
+                            height: 43,
+                            child: Text(
+                              DateFormat.Hm().format(item.localTime),
+                              style: TextStyle(
+                                fontSize: 36,
+                                color: textColor,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -151,3 +188,40 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+// Center(
+// child: Column(
+// mainAxisAlignment: MainAxisAlignment.center,
+// crossAxisAlignment: CrossAxisAlignment.start,
+// children: [
+// Row(
+// mainAxisAlignment: MainAxisAlignment.start,
+// children: [
+// Text(
+// item.displayName,
+// style: TextStyle(
+// fontSize: 20,
+// color: Colors.black54,
+// ),
+// ),
+// item.weather != null
+// ? Image.network(
+// 'https://openweathermap.org/img/wn/${item.weather.weatherIcon}@2x.png',
+// width: 20,
+// height: 20,
+// )
+// : Container(),
+// item.weather != null
+// ? Text(
+// '${item.weather.temperature.celsius.ceil()}°C')
+// : Container()
+// ],
+// ),
+// Text(
+// DateFormat.jms().format(item.localTime),
+// style: TextStyle(
+// fontSize: 30, fontWeight: FontWeight.bold),
+// )
+// ],
+// ),
+// )
