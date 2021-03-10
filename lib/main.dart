@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           data[index].weather != null
                               ? Image.network(
-                                  'http://openweathermap.org/img/wn/${data[index].weather.weatherIcon}@2x.png',
+                                  'https://openweathermap.org/img/wn/${data[index].weather.weatherIcon}@2x.png',
                                   width: 50,
                                   height: 50,
                                 )
