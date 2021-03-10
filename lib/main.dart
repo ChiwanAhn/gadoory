@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'gadoory',
-      theme: ThemeData(primarySwatch: Colors.amber),
       home: MyHomePage(),
     );
   }
@@ -95,56 +94,57 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 242, 239, 228),
       appBar: AppBar(
+        backgroundColor: Colors.black,
         title: Text('UBER : $uber'),
       ),
       body: Center(
         child: Container(
           width: 500,
-          child: GridView.count(
-            childAspectRatio: 1.3,
-            crossAxisCount: 2,
-            children: List.generate(
-              data.length,
-              (index) {
-                final item = data[index];
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            item.displayName,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.black54,
-                            ),
-                          ),
-                          item.weather != null
-                              ? Image.network(
-                                  'https://openweathermap.org/img/wn/${item.weather.weatherIcon}@2x.png',
-                                  width: 50,
-                                  height: 50,
-                                )
-                              : Container(),
-                          item.weather != null
-                              ? Text(
-                                  '${item.weather.temperature.celsius.ceil()}°C')
-                              : Container()
-                        ],
-                      ),
-                      Text(
-                        DateFormat.jms().format(item.localTime),
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                );
-              },
+          child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1.3,
             ),
+            itemCount: data.length,
+            itemBuilder: (context, index) {
+              final item = data[index];
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.displayName,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black54,
+                          ),
+                        ),
+                        item.weather != null
+                            ? Image.network(
+                                'https://openweathermap.org/img/wn/${item.weather.weatherIcon}@2x.png',
+                                width: 50,
+                                height: 50,
+                              )
+                            : Container(),
+                        item.weather != null
+                            ? Text(
+                                '${item.weather.temperature.celsius.ceil()}°C')
+                            : Container()
+                      ],
+                    ),
+                    Text(
+                      DateFormat.jms().format(item.localTime),
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),
