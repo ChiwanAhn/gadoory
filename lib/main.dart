@@ -132,7 +132,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             child: Row(
                               children: [
                                 Image.asset(
-                                  'icon_weather_${item.weather.weatherIcon.substring(0, 2)}.png',
+                                  'assets/icon_weather_${item.weather.weatherIcon.substring(0, 2)}.png',
                                   width: 20,
                                   height: 20,
                                 ),
