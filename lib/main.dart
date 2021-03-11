@@ -115,14 +115,11 @@ class _MyHomePageState extends State<MyHomePage> {
               final item = data[index];
               return DecoratedBox(
                 decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                          'assets/city_${item.displayName.replaceAll(' ', '_').toLowerCase()}.png'),
-                    ),
-                    color: Colors.black,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(16),
-                    )),
+                  image: DecorationImage(
+                    image: AssetImage(
+                        'assets/city_${item.displayName.replaceAll(' ', '_').toLowerCase()}.png'),
+                  ),
+                ),
                 child: Stack(
                   children: [
                     item.weather != null
