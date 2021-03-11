@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:timezone/browser.dart' as tz;
 import 'package:weather/weather.dart';
+
+import 'ui.dart';
 
 void main() async {
   await tz.initializeTimeZone();
@@ -43,8 +44,6 @@ class TimeZone {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  static Color textColor = Color(0xFFFAFAFA);
-
   var data = [
     TimeZone('Seoul', 'Asia/Seoul'),
     TimeZone('Hong Kong', 'Asia/Hong_Kong'),
@@ -95,10 +94,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 242, 239, 228),
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text('UBER : $uber'),
-      ),
       body: Center(
         child: Container(
           width: 360,
@@ -110,78 +105,11 @@ class _MyHomePageState extends State<MyHomePage> {
               crossAxisCount: 2,
               childAspectRatio: 0.75,
             ),
-            itemCount: data.length,
+            itemCount: data.length + 1,
             itemBuilder: (context, index) {
-              final item = data[index];
-              return DecoratedBox(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                        'assets/city_${item.displayName.replaceAll(' ', '_').toLowerCase()}.png'),
-                  ),
-                ),
-                child: Stack(
-                  children: [
-                    item.weather != null
-                        ? Positioned(
-                            top: 16,
-                            right: 16,
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  'assets/icon_weather_${item.weather.weatherIcon.substring(0, 2)}.png',
-                                  width: 20,
-                                  height: 20,
-                                ),
-                                SizedBox(
-                                  width: 4,
-                                ),
-                                Container(
-                                  height: 24,
-                                  child: Text(
-                                    '${item.weather.temperature.celsius.ceil()}°C',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      color: textColor,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        : Container(),
-                    Positioned(
-                      bottom: 16,
-                      left: 16,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 19,
-                            child: Text(
-                              item.displayName,
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: textColor,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            height: 43,
-                            child: Text(
-                              DateFormat.Hm().format(item.localTime),
-                              style: TextStyle(
-                                fontSize: 36,
-                                color: textColor,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              );
+              return index < data.length
+                  ? UI.timeZoneCard(data[index])
+                  : UI.financeCard(uber);
             },
           ),
         ),
