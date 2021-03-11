@@ -7,7 +7,7 @@ import 'main.dart';
 class UI {
   static Color textColor = Color(0xFFFAFAFA);
 
-  static Widget financeCard(double uber) {
+  static Widget financeCard(Finance finance) {
     return DecoratedBox(
       decoration: BoxDecoration(
           color: Colors.black,
@@ -24,7 +24,7 @@ class UI {
               width: 60,
             ),
           ),
-          uber == null
+          finance == null
               ? Container()
               : Positioned(
                   bottom: 16,
@@ -53,7 +53,7 @@ class UI {
                           Container(
                             height: 28,
                             child: Text(
-                              uber.toString(),
+                              finance.today.toString(),
                               style: GoogleFonts.lato(
                                 textStyle: TextStyle(
                                   fontWeight: FontWeight.w700,
@@ -170,7 +170,15 @@ class UI {
                 )
               ],
             ),
-          )
+          ),
+          item.displayName != 'London'
+              ? Container()
+              : Center(
+                  child: Image.asset(
+                    'assets/heart.gif',
+                    height: 50,
+                  ),
+                )
         ],
       ),
     );
