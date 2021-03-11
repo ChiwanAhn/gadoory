@@ -47,7 +47,7 @@ class Finance {
   double today;
   double yesterday;
 
-  double get diff => yesterday - today;
+  double get diff => today - yesterday;
 
   double get diffRate => ((today / yesterday) - 1) * 100;
 }
@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
     TimeZone('Seattle', 'America/Los_Angeles'),
   ];
 
-  var uber = Finance();
+  var uber;
 
   @override
   void initState() {
@@ -97,8 +97,9 @@ class _MyHomePageState extends State<MyHomePage> {
         'https://docs.google.com/spreadsheets/d/e/2PACX-1vRceLFXyWQfMpAI-8ravTmYNKBSD1ZhlRMLJn0Vln7odY621CHAQhihQpP0Lh2tVmgsbLD6uWeaVMsY/pub?gid=0&single=true&output=csv');
     var csv = await http.read(url);
     var list = csv.split(',');
-    uber.today = double.parse(list.first);
-    uber.yesterday = double.parse(list.last);
+    uber = Finance()
+      ..today = double.parse(list.first)
+      ..yesterday = double.parse(list.last);
     setState(() {});
   }
 
