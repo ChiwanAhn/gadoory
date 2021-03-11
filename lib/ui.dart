@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 import 'main.dart';
@@ -37,9 +38,12 @@ class UI {
                             height: 28,
                             child: Text(
                               '\$',
-                              style: TextStyle(
-                                fontSize: 24,
-                                color: textColor,
+                              style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 24,
+                                  color: textColor,
+                                ),
                               ),
                             ),
                           ),
@@ -50,9 +54,12 @@ class UI {
                             height: 28,
                             child: Text(
                               uber.toString(),
-                              style: TextStyle(
-                                fontSize: 24,
-                                color: textColor,
+                              style: GoogleFonts.lato(
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 24,
+                                  color: textColor,
+                                ),
                               ),
                             ),
                           )
@@ -94,9 +101,12 @@ class UI {
                         height: 24,
                         child: Text(
                           '${item.weather.temperature.celsius.ceil()}°C',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: textColor,
+                          style: GoogleFonts.lato(
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 20,
+                              color: textColor,
+                            ),
                           ),
                         ),
                       )
@@ -114,9 +124,12 @@ class UI {
                   height: 19,
                   child: Text(
                     item.displayName,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: textColor,
+                    style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: textColor,
+                      ),
                     ),
                   ),
                 ),
@@ -124,9 +137,12 @@ class UI {
                   height: 43,
                   child: Text(
                     DateFormat.Hm().format(item.localTime),
-                    style: TextStyle(
-                      fontSize: 36,
-                      color: textColor,
+                    style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 36,
+                        color: textColor,
+                      ),
                     ),
                   ),
                 )
