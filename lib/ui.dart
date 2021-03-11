@@ -23,42 +23,44 @@ class UI {
               width: 60,
             ),
           ),
-          Positioned(
-            bottom: 16,
-            left: 16,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Container(
-                      height: 28,
-                      child: Text(
-                        '\$',
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: textColor,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 2,
-                    ),
-                    Container(
-                      height: 28,
-                      child: Text(
-                        uber.toString(),
-                        style: TextStyle(
-                          fontSize: 24,
-                          color: textColor,
-                        ),
-                      ),
-                    )
-                  ],
+          uber == null
+              ? Container()
+              : Positioned(
+                  bottom: 16,
+                  left: 16,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Container(
+                            height: 28,
+                            child: Text(
+                              '\$',
+                              style: TextStyle(
+                                fontSize: 24,
+                                color: textColor,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 2,
+                          ),
+                          Container(
+                            height: 28,
+                            child: Text(
+                              uber.toString(),
+                              style: TextStyle(
+                                fontSize: 24,
+                                color: textColor,
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 )
-              ],
-            ),
-          )
         ],
       ),
     );
