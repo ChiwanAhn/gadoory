@@ -127,8 +127,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             right: 16,
                             child: Row(
                               children: [
-                                Image.network(
-                                  'https://openweathermap.org/img/wn/${item.weather.weatherIcon}@2x.png',
+                                Image.asset(
+                                  'icon_weather_${item.weather.weatherIcon.substring(0, 2)}.png',
                                   width: 20,
                                   height: 20,
                                 ),
