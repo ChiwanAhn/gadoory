@@ -19,7 +19,7 @@ class UI {
             top: 24,
             left: 20,
             child: Image.asset(
-              'logo_uber.png',
+              'assets/logo_uber.png',
               width: 60,
             ),
           ),
@@ -69,7 +69,7 @@ class UI {
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(
-              'city_${item.displayName.replaceAll(' ', '_').toLowerCase()}.png'),
+              'assets/city_${item.displayName.replaceAll(' ', '_').toLowerCase()}.png'),
         ),
       ),
       child: Stack(
@@ -81,7 +81,7 @@ class UI {
                   child: Row(
                     children: [
                       Image.asset(
-                        'icon_weather_${item.weather.weatherIcon.substring(0, 2)}.png',
+                        'assets/icon_weather_${item.weather.weatherIcon.substring(0, 2)}.png',
                         width: 20,
                         height: 20,
                       ),
