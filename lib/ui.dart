@@ -133,18 +133,40 @@ class UI {
                     ),
                   ),
                 ),
-                Container(
-                  height: 43,
-                  child: Text(
-                    DateFormat.Hm().format(item.localTime),
-                    style: GoogleFonts.lato(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 36,
-                        color: textColor,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 43,
+                      child: Text(
+                        DateFormat('hh:mm').format(item.localTime),
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 36,
+                            color: textColor,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 6, 0, 0),
+                      height: 14,
+                      child: Text(
+                        DateFormat('a').format(item.localTime),
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                            color: textColor,
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
                 )
               ],
             ),
