@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gadoory/models/finance.dart';
 import 'package:gadoory/models/timezone.dart';
+import 'package:gadoory/pages/time_zone_detail.dart';
 import 'package:gadoory/widgets/finance_card.dart';
 import 'package:gadoory/widgets/time_zone_card.dart';
+import 'package:get/route_manager.dart';
 
 import 'dart:async';
 import 'package:http/http.dart' as http;
@@ -83,7 +85,14 @@ class _MyHomePageState extends State<MyHomePage> {
             itemCount: data.length + 1,
             itemBuilder: (context, index) {
               return index < data.length
-                  ? TimeZoneCard(timeZone: data[index])
+                  ? TimeZoneCard(
+                      timeZone: data[index],
+                      onTap: () {
+                        Get.to(TimeZoneDetail(
+                          timeZone: data[index],
+                        ));
+                      },
+                    )
                   : FinanceCard(finance: uber);
             },
           ),
