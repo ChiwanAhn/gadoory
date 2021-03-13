@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
-import 'main.dart';
+import 'models/finance.dart';
+import 'models/timezone.dart';
 
-class UI {
+class GadooriCard {
   static Color textColor = Color(0xFFFAFAFA);
 
   static Widget financeCard(Finance finance) {
